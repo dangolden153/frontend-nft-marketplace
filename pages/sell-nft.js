@@ -78,10 +78,11 @@ function SellNft() {
         })
     }
 
+     ///// nft widthraw handle success notification
     const handleWithdrawSuccess = async () => {
         setRefresh(!refresh)
         dispatch({
-            title: "p",
+            message: "Withdrawing proceeds",
             type: "success",
             position: "topR",
         })
@@ -93,9 +94,11 @@ function SellNft() {
                 abi: nftAbi,
                 contractAddress: nftMarketplaceAddress,
                 functionName: "getProceeds",
-                params: {seller: account},
+                params: { seller: account },
             },
-            onError: (error) => {console.log(error)},
+            onError: (error) => {
+                console.log(error)
+            },
         })
 
         if (returnedProceeds) {
@@ -108,35 +111,35 @@ function SellNft() {
     }, [proceeds, refresh, account, isWeb3Enabled])
 
     return (
-        <div >
-            <div className="w-5/12 p-10">
-            <Form
-                onSubmit={approveAndList}
-                data={[
-                    {
-                        name: "NFT Address",
-                        type: "text",
-                        inputWidth: "50%",
-                        value: "",
-                        key: "nftAddress",
-                    },
-                    {
-                        name: "Token ID",
-                        type: "number",
-                        value: "",
-                        key: "tokenId",
-                    },
-                    {
-                        name: "Price (in ETH)",
-                        type: "number",
-                        value: "",
-                        key: "price",
-                    },
-                ]}
-                title="Sell your NFT!"
-                id="Main Form"
-            />
-</div>
+        <div className="p-10">
+            <div className="w-5/12">
+                <Form
+                    onSubmit={approveAndList}
+                    data={[
+                        {
+                            name: "NFT Address",
+                            type: "text",
+                            inputWidth: "90%",
+                            value: "",
+                            key: "nftAddress",
+                        },
+                        {
+                            name: "Token ID",
+                            type: "number",
+                            value: "",
+                            key: "tokenId",
+                        },
+                        {
+                            name: "Price (in ETH)",
+                            type: "number",
+                            value: "",
+                            key: "price",
+                        },
+                    ]}
+                    title="Sell your NFT!"
+                    id="Main Form"
+                />
+            </div>
             <div className="mt-10">Withdraw {proceeds} proceeds</div>
             {proceeds != "0" ? (
                 <Button
